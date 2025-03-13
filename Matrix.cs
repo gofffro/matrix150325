@@ -11,10 +11,18 @@ namespace MatrixApp
   {
     int matrixRow = 3;
     int matrixColumn = 3;
-    int matrixSize = 9;
     int[,] matrix;
     public Matrix(int matrixRow, int matrixColumn) 
     {
+      if (matrixRow !=  matrixColumn)
+      {
+        throw new ArgumentException("Матрица должна быть квадратной.");
+      }
+
+      if (matrixRow <= 0 || matrixColumn <= 0)
+      {
+        throw new ArgumentException("Размеры матрицы, должны быть больше нуля");
+      }
       this.matrixRow = matrixRow;
       this.matrixColumn = matrixColumn;
       matrix = new int[matrixRow, matrixColumn];
