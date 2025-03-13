@@ -9,14 +9,15 @@ namespace MatrixApp
 {
   public class Matrix
   {
-    int matrixRow = 3;
-    int matrixColumn = 3;
+    int matrixRow;
+    int matrixColumn;
     int[,] matrix;
+
     public Matrix(int matrixRow, int matrixColumn) 
     {
       if (matrixRow !=  matrixColumn)
       {
-        throw new ArgumentException("Матрица должна быть квадратной.");
+        throw new ArgumentException("Матрица должна быть квадратной");
       }
 
       if (matrixRow <= 0 || matrixColumn <= 0)
@@ -26,6 +27,30 @@ namespace MatrixApp
       this.matrixRow = matrixRow;
       this.matrixColumn = matrixColumn;
       matrix = new int[matrixRow, matrixColumn];
+    }
+
+    public void EntryMatrix()
+    {
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          Console.Write($"Введите эначение ячейки [{row}, {column}]: ");
+          matrix[row, column] = int.Parse(Console.ReadLine());
+        }
+      }
+    }
+
+    public void OutputMatrix()
+    {
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          Console.Write(matrix[row, column] + " ");
+        }
+        Console.WriteLine();
+      }
     }
   }
 }
