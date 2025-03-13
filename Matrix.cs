@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,27 @@ namespace MatrixApp
       matrix = new int[matrixRow, matrixColumn];
     }
 
+    public Matrix(int[,] arrayMatrix)
+    {
+      matrixRow = arrayMatrix.GetLength(0);
+      matrixColumn = arrayMatrix.GetLength(1);
+
+      if (matrixRow != matrixColumn)
+      {
+        throw new ArgumentException("Матрица должна быть квадратной");
+      }
+
+      matrix = new int[matrixRow, matrixColumn];
+      
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          matrix[row, column] = arrayMatrix[row, column];
+        }
+      }
+    }
+
     public void EntryMatrix()
     {
       for (int row = 0; row < matrixRow; ++row)
@@ -53,7 +75,7 @@ namespace MatrixApp
       }
     }
 
-    public static Matrix operator +(Matrix matrixA,  Matrix matrixB)
+    public static Matrix operator +(Matrix matrixA, Matrix matrixB)
     {
       if (matrixA.matrixRow != matrixB.matrixRow || matrixA.matrixColumn != matrixB.matrixColumn)
       {
