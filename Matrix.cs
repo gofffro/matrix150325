@@ -75,6 +75,30 @@ namespace MatrixApp
       }
     }
 
+    public double Determinant()
+    {
+      if (matrixRow != matrixColumn)
+      {
+        throw new ArgumentException("Матрица должна быть квадратной");
+      }
+
+      int matrixSize = matrixRow;
+
+      switch (matrixSize)
+      {
+        case 1:
+          return matrix[0, 0];
+        case 2:
+          return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+        case 3:
+          return matrix[0, 0] * (matrix[1, 1] * matrix[2, 2] - matrix[1, 2] * matrix[2, 1])
+             - matrix[0, 1] * (matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0])
+             + matrix[0, 2] * (matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0]);
+        default:
+          throw new ArgumentException("К сожалению, определитель в этой программе можно посчитать только для 1х1, 2х2, 3х3 матриц");
+      }
+    }
+
     public static Matrix operator +(Matrix matrixA, Matrix matrixB)
     {
       if (matrixA.matrixRow != matrixB.matrixRow || matrixA.matrixColumn != matrixB.matrixColumn)
@@ -120,7 +144,6 @@ namespace MatrixApp
           }
         }
       }
-
       return matrixResult;
     }
   }
