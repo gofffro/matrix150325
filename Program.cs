@@ -12,7 +12,7 @@ namespace MatrixApp
         Matrix matrixA = CreateMatrix();
         Matrix cloneMatrixA = matrixA.Clone();
 
-        Console.Write("Матрица B ");
+        Console.Write("Матрица B");
         Matrix matrixB = CreateMatrix();
         Matrix cloneMatrixB = matrixB.Clone();
 
@@ -57,12 +57,12 @@ namespace MatrixApp
                 Console.WriteLine("Произведение A * B:\n" + (cloneMatrixA * cloneMatrixB));
                 break;
               case "3":
-                Console.Write("Введите число для A: ");
+                Console.Write("Введите число - множитель для элементов матрицы A: ");
                 double scalarA = Convert.ToDouble(Console.ReadLine());
                 Console.WriteLine("A * число:\n" + (cloneMatrixA * scalarA));
                 break;
               case "4":
-                Console.Write("Введите число для B: ");
+                Console.Write("Введите число - множитель для элементов матрицы В: ");
                 double scalarB = Convert.ToDouble(Console.ReadLine());
                 Console.WriteLine("B * число:\n" + (cloneMatrixB * scalarB));
                 break;
@@ -120,8 +120,7 @@ namespace MatrixApp
 
     public static Matrix CreateMatrix()
     {
-      Console.WriteLine();
-      Console.Write("Введите размер матрицы (1х1=1, 2х2=2 и т.д): ");
+      Console.Write("\nУкажите 1 число - размерность для квадратной матрицы: ");
       int sizeMatrix = Convert.ToInt32(Console.ReadLine());
 
       Console.Write("Выберите метод: 1 - вручную, 2 - сгенерировать: ");

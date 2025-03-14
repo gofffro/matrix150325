@@ -57,7 +57,7 @@ namespace MatrixApp
       {
         for (int column = 0; column < matrixColumn; ++column)
         {
-          Console.Write($"Введите эначение ячейки [{row}, {column}]: ");
+          Console.Write($"Введите значение ячейки [{row}, {column}]: ");
           matrix[row, column] = double.Parse(Console.ReadLine());
         }
       }
@@ -99,7 +99,7 @@ namespace MatrixApp
       }
     }
 
-    public double SumElements()
+    public double SumOfElements()
     {
       double sumMatrix = 0;
 
@@ -132,7 +132,6 @@ namespace MatrixApp
           matrixResult.matrix[row, column] = matrixA.matrix[row, column] + matrixB.matrix[row, column];
         }
       }
-
       return matrixResult;
     }
 
@@ -176,12 +175,12 @@ namespace MatrixApp
 
     public static bool operator >(Matrix matrixA, Matrix matrixB)
     {
-      return matrixA.SumElements() > matrixB.SumElements();
+      return matrixA.SumOfElements() > matrixB.SumOfElements();
     }
 
     public static bool operator <(Matrix matrixA, Matrix matrixB)
     {
-      return matrixA.SumElements() < matrixB.SumElements();
+      return matrixA.SumOfElements() < matrixB.SumOfElements();
     }
 
     public static bool operator ==(Matrix matrixA, Matrix matrixB)
@@ -252,7 +251,6 @@ namespace MatrixApp
       return resultMatrix;
     }
 
-
     public static implicit operator string(Matrix m)
     {
       return m.ToString();
@@ -316,30 +314,26 @@ namespace MatrixApp
 
       for (int row = 0; row < matrixRow; ++row)
       {
-        if (row == skipRow)
+        if (row != skipRow)
         {
-          continue;
-        }
+          int subColumn = 0;
 
-        int subColumn = 0;
-
-        for (int column = 0; column < matrixColumn; ++column)
-        {
-          if (column == skipColumn)
-          {
-            continue;
+          for (int column = 0; column < matrixColumn; ++column)
+          { 
+            if (column != skipColumn)
+            {
+              subMatrix.matrix[subRow, subColumn] = matrix[row, column];
+              ++subColumn;
+            }
           }
-          subMatrix.matrix[subRow, subColumn] = matrix[row, column];
-          subColumn++;
+          ++subRow;
         }
-        subRow++;
       }
       return subMatrix.Determinant();
     }
 
     private Matrix Transpose(Matrix originalMatrix)
     {
-
       Matrix transposedMatrix = new Matrix(originalMatrix.matrixRow, originalMatrix.matrixColumn);
 
       for (int row = 0; row < originalMatrix.matrixRow; ++row)
@@ -363,6 +357,5 @@ namespace MatrixApp
     {
       return new Matrix(this);
     }
-
   }
 }

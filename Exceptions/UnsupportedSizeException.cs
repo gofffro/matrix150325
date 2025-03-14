@@ -8,6 +8,6 @@ namespace MatrixApp
 {
   public class UnsupportedSizeException : MatrixException
   {
-    public UnsupportedSizeException() : base("К сожалению, определитель в этой программе можно посчитать только для 1х1, 2х2, 3х3 матриц") { }
+    public UnsupportedSizeException() : base("К сожалению, определитель в этой программе можно посчитать только для матриц размерностью 1х1, 2х2, 3х3") { }
   }
 }
