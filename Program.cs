@@ -41,15 +41,13 @@ namespace MatrixApp
           menuMethod = Console.ReadLine();
           Console.Clear();
 
-          if (menuMethod == "0")
-          {
-            break;
-          }
-
           try
           {
             switch (menuMethod)
             {
+              case "0":
+                Console.WriteLine("Программа завершила работу");
+                return;
               case "1":
                 Console.WriteLine("Сумма A + B:\n" + (cloneMatrixA + cloneMatrixB));
                 break;
@@ -123,7 +121,7 @@ namespace MatrixApp
       Console.Write("\nУкажите 1 число - размерность для квадратной матрицы: ");
       int sizeMatrix = Convert.ToInt32(Console.ReadLine());
 
-      Console.Write("Выберите метод: 1 - вручную, 2 - сгенерировать: ");
+      Console.Write("Выберите метод заполнения матрицы: 1 - вручную, 2 - сгенерировать: ");
       string method = Console.ReadLine();
 
       Matrix matrix;
@@ -144,7 +142,6 @@ namespace MatrixApp
       {
         throw new InvalidOperationException("Неверный выбор метода создания");
       }
-
       return matrix;
     }
   }
