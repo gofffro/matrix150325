@@ -99,6 +99,20 @@ namespace MatrixApp
       }
     }
 
+    public int SumElements()
+    {
+      int sumMatrix = 0;
+
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          sumMatrix = matrix[row, column];
+        }
+      }
+      return sumMatrix;
+    }
+
     public static Matrix operator +(Matrix matrixA, Matrix matrixB)
     {
       if (matrixA.matrixRow != matrixB.matrixRow || matrixA.matrixColumn != matrixB.matrixColumn)
@@ -146,5 +160,51 @@ namespace MatrixApp
       }
       return matrixResult;
     }
+
+    public static bool operator >(Matrix matrixA, Matrix matrixB)
+    {
+      return matrixA.SumElements() > matrixB.SumElements();
+    }
+
+    public static bool operator <(Matrix matrixA, Matrix matrixB)
+    {
+      return matrixA.SumElements() < matrixB.SumElements();
+    }
+
+    public static bool operator ==(Matrix matrixA, Matrix matrixB)
+    {
+      if (matrixA.matrixRow != matrixB.matrixRow || matrixA.matrixColumn != matrixB.matrixColumn)
+      {
+        return false;
+      }
+
+      for (int row = 0; row < matrixA.matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixA.matrixColumn; ++column)
+        {
+          if (matrixA.matrix[row, column] != matrixB.matrix[row, column])
+          {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    public static bool operator !=(Matrix matrixA, Matrix matrixB)
+    {
+      return !(matrixA == matrixB);
+    }
+
+    public static bool operator >=(Matrix matrixA, Matrix matrixB)
+    {
+      return matrixA > matrixB || matrixA == matrixB;
+    }
+
+    public static bool operator <=(Matrix matrixA, Matrix matrixB)
+    {
+      return matrixA < matrixB || matrixA == matrixB;
+    }
+
   }
 }
