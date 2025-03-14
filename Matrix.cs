@@ -12,7 +12,7 @@ namespace MatrixApp
   {
     int matrixRow;
     int matrixColumn;
-    int[,] matrix;
+    double[,] matrix;
 
     public Matrix(int matrixRow, int matrixColumn) 
     {
@@ -27,7 +27,7 @@ namespace MatrixApp
       }
       this.matrixRow = matrixRow;
       this.matrixColumn = matrixColumn;
-      matrix = new int[matrixRow, matrixColumn];
+      matrix = new double[matrixRow, matrixColumn];
     }
 
     public Matrix(int[,] arrayMatrix)
@@ -40,7 +40,7 @@ namespace MatrixApp
         throw new ArgumentException("Матрица должна быть квадратной");
       }
 
-      matrix = new int[matrixRow, matrixColumn];
+      matrix = new double[matrixRow, matrixColumn];
       
       for (int row = 0; row < matrixRow; ++row)
       {
@@ -58,7 +58,7 @@ namespace MatrixApp
         for (int column = 0; column < matrixColumn; ++column)
         {
           Console.Write($"Введите эначение ячейки [{row}, {column}]: ");
-          matrix[row, column] = int.Parse(Console.ReadLine());
+          matrix[row, column] = double.Parse(Console.ReadLine());
         }
       }
     }
@@ -99,9 +99,9 @@ namespace MatrixApp
       }
     }
 
-    public int SumElements()
+    public double SumElements()
     {
-      int sumMatrix = 0;
+      double sumMatrix = 0;
 
       for (int row = 0; row < matrixRow; ++row)
       {
@@ -168,7 +168,7 @@ namespace MatrixApp
       {
         for (int column = 0; column < matrix.matrixColumn; ++column)
         {
-          resultMatrix.matrix[row, column] = (int)(matrix.matrix[row, column] * scalarNumber);
+          resultMatrix.matrix[row, column] = (matrix.matrix[row, column] * scalarNumber);
         }
       }
       return resultMatrix;
@@ -301,7 +301,7 @@ namespace MatrixApp
         for (int column = 0; column < matrixColumn; ++column)
         {
           double sign = (row + column) % 2 == 0 ? 1 : -1;
-          adjugate.matrix[row, column] = (int)(sign * Minor(row, column));
+          adjugate.matrix[row, column] = (sign * Minor(row, column));
         }
       }
 
@@ -325,7 +325,7 @@ namespace MatrixApp
 
         for (int column = 0; column < matrixColumn; ++column)
         {
-          if (j == skipColumn)
+          if (column == skipColumn)
           {
             continue;
           }
