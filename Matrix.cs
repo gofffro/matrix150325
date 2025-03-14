@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MatrixApp
 {
-  public class Matrix : IComparable<Matrix>
+  public class Matrix : ICloneable, IComparable<Matrix>
   {
     int matrixRow;
     int matrixColumn;
@@ -351,5 +351,18 @@ namespace MatrixApp
       }
       return transposedMatrix;
     }
+
+    public Matrix(Matrix matrix)
+    {
+      matrixRow = matrix.matrixRow;
+      matrixColumn = matrix.matrixColumn;
+      this.matrix = (double[,])matrix.matrix.Clone();
+    }
+
+    public object Clone()
+    {
+      return new Matrix(this);
+    }
+
   }
 }
