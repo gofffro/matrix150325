@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MatrixApp
 {
-  public class Matrix
+  public class Matrix : IComparable<Matrix>
   {
     int matrixRow;
     int matrixColumn;
@@ -239,6 +239,7 @@ namespace MatrixApp
       return resultMatrix;
     }
 
+
     public static implicit operator string(Matrix m)
     {
       return m.ToString();
@@ -247,6 +248,33 @@ namespace MatrixApp
     public static implicit operator Matrix(int[,] array)
     {
       return new Matrix(array);
+    }
+
+    public int CompareTo(Matrix otherMatrix)
+    {
+      if (otherMatrix == null)
+      {
+        return 1;
+      }
+      if (this > otherMatrix)
+      {
+        return 1;
+      }
+      if (this < otherMatrix)
+      {
+        return -1;
+      }
+      return 0;
+    }
+
+    public override int GetHashCode()
+    {
+      return base.GetHashCode();
+    }
+
+    public bool Equals(Matrix matrixA, Matrix matrixB) 
+    {
+      return matrixA == matrixB;
     }
   }
 }
