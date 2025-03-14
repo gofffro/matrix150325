@@ -215,5 +215,38 @@ namespace MatrixApp
     {
       return matrix.matrixRow <= 0 || matrix.Determinant() == 0;
     }
+
+    public override string ToString()
+    {
+      string resultMatrix = "";
+
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          resultMatrix += matrix[row, column].ToString();
+
+          if (column < matrixColumn - 1)
+          {
+            resultMatrix += " ";
+          }
+        }
+        if (row < matrixRow - 1)
+        {
+          resultMatrix += Environment.NewLine;
+        }
+      }
+      return resultMatrix;
+    }
+
+    public static implicit operator string(Matrix m)
+    {
+      return m.ToString();
+    }
+
+    public static implicit operator Matrix(int[,] array)
+    {
+      return new Matrix(array);
+    }
   }
 }
