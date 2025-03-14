@@ -18,12 +18,12 @@ namespace MatrixApp
     {
       if (matrixRow !=  matrixColumn)
       {
-        throw new ArgumentException("Матрица должна быть квадратной");
+        throw new SquareMatrixException();
       }
 
       if (matrixRow <= 0 || matrixColumn <= 0)
       {
-        throw new ArgumentException("Размеры матрицы, должны быть больше нуля");
+        throw new InvalidSizeException();
       }
       this.matrixRow = matrixRow;
       this.matrixColumn = matrixColumn;
@@ -37,7 +37,7 @@ namespace MatrixApp
 
       if (matrixRow != matrixColumn)
       {
-        throw new ArgumentException("Матрица должна быть квадратной");
+        throw new SquareMatrixException();
       }
 
       matrix = new double[matrixRow, matrixColumn];
@@ -79,7 +79,7 @@ namespace MatrixApp
     {
       if (matrixRow != matrixColumn)
       {
-        throw new ArgumentException("Матрица должна быть квадратной");
+        throw new SquareMatrixException();
       }
 
       int matrixSize = matrixRow;
@@ -95,7 +95,7 @@ namespace MatrixApp
              - matrix[0, 1] * (matrix[1, 0] * matrix[2, 2] - matrix[1, 2] * matrix[2, 0])
              + matrix[0, 2] * (matrix[1, 0] * matrix[2, 1] - matrix[1, 1] * matrix[2, 0]);
         default:
-          throw new ArgumentException("К сожалению, определитель в этой программе можно посчитать только для 1х1, 2х2, 3х3 матриц");
+          throw new UnsupportedSizeException();
       }
     }
 
@@ -117,7 +117,7 @@ namespace MatrixApp
     {
       if (matrixA.matrixRow != matrixB.matrixRow || matrixA.matrixColumn != matrixB.matrixColumn)
       {
-        throw new ArgumentException("Только матрицы одного размера, можно складывать");
+        throw new MatrixException("Матрицы должны быть одного размера");
       }
 
       Matrix matrixResult = new Matrix(matrixA.matrixRow, matrixB.matrixRow);
@@ -140,7 +140,7 @@ namespace MatrixApp
     {
       if (matrixA.matrixColumn != matrixB.matrixRow)
       {
-        throw new ArgumentException("Количество столбцов в первой матрице должно равняться количеству строк во втором");
+        throw new MatrixException("Количество столбцов первой матрицы должно равняться количеству строк второй.");
       }
 
       Matrix matrixResult = new Matrix(matrixA.matrixRow, matrixB.matrixRow);
@@ -291,7 +291,7 @@ namespace MatrixApp
       double detMatrix = Determinant();
       if (detMatrix == 0)
       {
-        throw new ArgumentException(""); 
+        throw new NonInvertibleMatrixException();
       }
 
       Matrix adjugate = new Matrix(matrixRow, matrixColumn);
