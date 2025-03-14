@@ -161,6 +161,19 @@ namespace MatrixApp
       return matrixResult;
     }
 
+    public static Matrix operator *(Matrix matrix, double scalarNumber)
+    {
+      Matrix resultMatrix = new Matrix(matrix.matrixRow, matrix.matrixColumn);
+      for (int row = 0; row < matrix.matrixRow; ++row)
+      {
+        for (int column = 0; column < matrix.matrixColumn; ++j)
+        {
+          resultMatrix.matrix[row, column] = (int)(matrix.matrix[row, column] * scalarNumber);
+        }
+      }
+      return resultMatrix;
+     }
+
     public static bool operator >(Matrix matrixA, Matrix matrixB)
     {
       return matrixA.SumElements() > matrixB.SumElements();
@@ -252,10 +265,6 @@ namespace MatrixApp
 
     public int CompareTo(Matrix otherMatrix)
     {
-      if (otherMatrix == null)
-      {
-        return 1;
-      }
       if (this > otherMatrix)
       {
         return 1;
