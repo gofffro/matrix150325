@@ -166,7 +166,7 @@ namespace MatrixApp
       Matrix resultMatrix = new Matrix(matrix.matrixRow, matrix.matrixColumn);
       for (int row = 0; row < matrix.matrixRow; ++row)
       {
-        for (int column = 0; column < matrix.matrixColumn; ++j)
+        for (int column = 0; column < matrix.matrixColumn; ++column)
         {
           resultMatrix.matrix[row, column] = (int)(matrix.matrix[row, column] * scalarNumber);
         }
@@ -284,6 +284,72 @@ namespace MatrixApp
     public bool Equals(Matrix matrixA, Matrix matrixB) 
     {
       return matrixA == matrixB;
+    }
+
+    public Matrix Inverse()
+    {
+      double detMatrix = Determinant();
+      if (detMatrix == 0)
+      {
+        throw new ArgumentException(""); 
+      }
+
+      Matrix adjugate = new Matrix(matrixRow, matrixColumn);
+
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          double sign = (row + column) % 2 == 0 ? 1 : -1;
+          adjugate.matrix[row, column] = (int)(sign * Minor(row, column));
+        }
+      }
+
+      adjugate = Transpose(adjugate);
+      return adjugate * (1 / detMatrix); 
+    }
+
+    private double Minor(int skipRow, int skipColumn)
+    {
+      Matrix subMatrix = new Matrix(matrixRow - 1, matrixColumn - 1);
+      int subRow = 0;
+
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        if (row == skipRow)
+        {
+          continue;
+        }
+
+        int subColumn = 0;
+
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          if (j == skipColumn)
+          {
+            continue;
+          }
+          subMatrix.matrix[subRow, subColumn] = matrix[row, column];
+          subColumn++;
+        }
+        subRow++;
+      }
+      return subMatrix.Determinant();
+    }
+
+    private Matrix Transpose(Matrix originalMatrix)
+    {
+
+      Matrix transposedMatrix = new Matrix(originalMatrix.matrixRow, originalMatrix.matrixColumn);
+
+      for (int row = 0; row < originalMatrix.matrixRow; ++row)
+      {
+        for (int column = 0; column < originalMatrix.matrixColumn; ++column)
+        {
+          transposedMatrix.matrix[column, row] = originalMatrix.matrix[row, column];
+        }
+      }
+      return transposedMatrix;
     }
   }
 }
