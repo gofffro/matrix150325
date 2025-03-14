@@ -20,8 +20,8 @@ namespace MatrixApp
         while (true)
         {
           Console.WriteLine();
-          Console.WriteLine($"Matrix A:\n{matrixA}\n");
-          Console.WriteLine($"Matrix B:\n{matrixB}\n");
+          Console.WriteLine($"Matrix A:\n{matrixA.ToString()}\n");
+          Console.WriteLine($"Matrix B:\n{matrixB.ToString()}\n");
           Console.WriteLine("Меню:");
           Console.WriteLine("1 - Сложить матрицы");
           Console.WriteLine("2 - Умножить матрицы");
