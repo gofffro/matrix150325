@@ -107,7 +107,7 @@ namespace MatrixApp
       {
         for (int column = 0; column < matrixColumn; ++column)
         {
-          sumMatrix = matrix[row, column];
+          sumMatrix += matrix[row, column];
         }
       }
       return sumMatrix;
@@ -206,5 +206,14 @@ namespace MatrixApp
       return matrixA < matrixB || matrixA == matrixB;
     }
 
+    public static bool operator true(Matrix matrix)
+    {
+      return matrix.matrixRow > 0 && matrix.Determinant() != 0;
+    }
+
+    public static bool operator false(Matrix matrix)
+    {
+      return matrix.matrixRow <= 0 || matrix.Determinant() == 0;
+    }
   }
 }
