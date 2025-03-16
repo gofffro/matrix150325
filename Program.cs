@@ -1,4 +1,4 @@
-﻿using System.CodeDom.Compiler;
+﻿using System;
 
 namespace MatrixApp
 {
@@ -10,18 +10,18 @@ namespace MatrixApp
       {
         Console.Write("Матрица A");
         Matrix matrixA = CreateMatrix();
-        Matrix cloneMatrixA = matrixA.Clone();
+        Matrix cloneMatrixA = (Matrix)matrixA.Clone();
 
         Console.Write("Матрица B");
         Matrix matrixB = CreateMatrix();
-        Matrix cloneMatrixB = matrixB.Clone();
+        Matrix cloneMatrixB = (Matrix)matrixB.Clone();
 
         string menuMethod;
         while (true)
         {
           Console.WriteLine();
-          Console.WriteLine($"Matrix A:\n{matrixA.ToString()}\n");
-          Console.WriteLine($"Matrix B:\n{matrixB.ToString()}\n");
+          Console.WriteLine($"Matrix A:\n{matrixA}\n");
+          Console.WriteLine($"Matrix B:\n{matrixB}\n");
           Console.WriteLine("Меню:");
           Console.WriteLine("1 - Сложить матрицы");
           Console.WriteLine("2 - Умножить матрицы");
@@ -29,8 +29,8 @@ namespace MatrixApp
           Console.WriteLine("4 - Умножить B на число");
           Console.WriteLine("5 - Сравнить A и B (A > B)");
           Console.WriteLine("6 - Сравнить A и B (A < B)");
-          Console.WriteLine("7 - Определитель A (размерность матрицы от 1х1 до 3х3)");
-          Console.WriteLine("8 - Определитель B (размерность матрицы от 1х1 до 3х3)");
+          Console.WriteLine("7 - Определитель A");
+          Console.WriteLine("8 - Определитель B");
           Console.WriteLine("9 - GetHashCode A");
           Console.WriteLine("10 - GetHashCode B");
           Console.WriteLine("11 - Проверить A.Equals(B)");
@@ -41,74 +41,63 @@ namespace MatrixApp
           menuMethod = Console.ReadLine();
           Console.Clear();
 
-          try
+          switch (menuMethod)
           {
-            switch (menuMethod)
-            {
-              case "0":
-                Console.WriteLine("Программа завершила работу");
-                return;
-              case "1":
-                Console.WriteLine("Сумма A + B:\n" + (cloneMatrixA + cloneMatrixB));
-                break;
-              case "2":
-                Console.WriteLine("Произведение A * B:\n" + (cloneMatrixA * cloneMatrixB));
-                break;
-              case "3":
-                Console.Write("Введите число - множитель для элементов матрицы A: ");
-                double scalarA = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("A * число:\n" + (cloneMatrixA * scalarA));
-                break;
-              case "4":
-                Console.Write("Введите число - множитель для элементов матрицы В: ");
-                double scalarB = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("B * число:\n" + (cloneMatrixB * scalarB));
-                break;
-              case "5":
-                Console.WriteLine($"A > B: {matrixA > matrixB}");
-                break;
-              case "6":
-                Console.WriteLine($"A < B: {matrixA < matrixB}");
-                break;
-              case "7":
-                Console.WriteLine($"det(A): {matrixA.Determinant()}");
-                break;
-              case "8":
-                Console.WriteLine($"det(B): {matrixB.Determinant()}");
-                break;
-              case "9":
-                Console.WriteLine($"HashCode A: {matrixA.GetHashCode()}");
-                break;
-              case "10":
-                Console.WriteLine($"HashCode B: {matrixB.GetHashCode()}");
-                break;
-              case "11":
-                Console.WriteLine($"A == B: {matrixA == matrixB}");
-                break;
-              case "12":
-                Console.WriteLine("Обратная A:\n" + matrixA.Inverse());
-                break;
-              case "13":
-                Console.WriteLine("Обратная B:\n" + matrixB.Inverse());
-                break;
-              default:
-                Console.WriteLine("Некорректный ввод.");
-                break;
-            }
-          }
-          catch (NonInvertibleMatrixException ex)
-          {
-            Console.WriteLine($"Ошибка: {ex.Message}");
-          }
-          catch (MatrixException ex)
-          {
-            Console.WriteLine($"Ошибка матрицы: {ex.Message}");
-          }
-          catch (Exception ex)
-          {
-            Console.WriteLine($"Непредвиденная ошибка: {ex.Message}");
+            case "0":
+              Console.WriteLine("Программа завершила работу");
+              return;
+            case "1":
+              Console.WriteLine("Сумма A + B:\n" + (cloneMatrixA + cloneMatrixB));
+              break;
+            case "2":
+              Console.WriteLine("Произведение A * B:\n" + (cloneMatrixA * cloneMatrixB));
+              break;
+            case "3":
+              Console.Write("Введите число - множитель для A: ");
+              double scalarA = Convert.ToDouble(Console.ReadLine());
+              Console.WriteLine("A * число:\n" + (cloneMatrixA * scalarA));
+              break;
+            case "4":
+              Console.Write("Введите число - множитель для B: ");
+              double scalarB = Convert.ToDouble(Console.ReadLine());
+              Console.WriteLine("B * число:\n" + (cloneMatrixB * scalarB));
+              break;
+            case "5":
+              Console.WriteLine($"A > B: {matrixA > matrixB}");
+              break;
+            case "6":
+              Console.WriteLine($"A < B: {matrixA < matrixB}");
+              break;
+            case "7":
+              Console.WriteLine($"det(A): {matrixA.Determinant()}");
+              break;
+            case "8":
+              Console.WriteLine($"det(B): {matrixB.Determinant()}");
+              break;
+            case "9":
+              Console.WriteLine($"HashCode A: {matrixA.GetHashCode()}");
+              break;
+            case "10":
+              Console.WriteLine($"HashCode B: {matrixB.GetHashCode()}");
+              break;
+            case "11":
+              Console.WriteLine($"A == B: {matrixA == matrixB}");
+              break;
+            case "12":
+              Console.WriteLine("Обратная A:\n" + matrixA.Inverse());
+              break;
+            case "13":
+              Console.WriteLine("Обратная B:\n" + matrixB.Inverse());
+              break;
+            default:
+              Console.WriteLine("Некорректный ввод.");
+              break;
           }
         }
+      }
+      catch (MatrixException ex)
+      {
+        Console.WriteLine($"Ошибка: {ex.Message}");
       }
       catch (Exception ex)
       {
@@ -118,31 +107,38 @@ namespace MatrixApp
 
     public static Matrix CreateMatrix()
     {
-      Console.Write("\nУкажите 1 число - размерность для квадратной матрицы: ");
-      int sizeMatrix = Convert.ToInt32(Console.ReadLine());
+      try
+      {
+        Console.Write("\nРазмерность квадратной матрицы: ");
+        int matrixSize = Convert.ToInt32(Console.ReadLine());
 
-      Console.Write("Выберите метод заполнения матрицы: 1 - вручную, 2 - сгенерировать: ");
-      string method = Console.ReadLine();
+        Console.Write("Способ заполнения (1 - вручную, 2 - генерация): ");
+        string method = Console.ReadLine();
 
-      Matrix matrix;
-      if (method == "1")
-      {
-        matrix = new Matrix(sizeMatrix, sizeMatrix);
-        matrix.EntryMatrix();
+        Matrix matrix;
+        if (method == "1")
+        {
+          matrix = new Matrix(matrixSize, matrixSize);
+          matrix.EntryMatrix();
+        }
+        else if (method == "2")
+        {
+          Console.Write("Минимальное значение: ");
+          int minValue = Convert.ToInt32(Console.ReadLine());
+          Console.Write("Максимальное значение: ");
+          int maxValue = Convert.ToInt32(Console.ReadLine());
+          matrix = MatrixGenerator.Generate(matrixSize, minValue, maxValue);
+        }
+        else
+        {
+          throw new InvalidOperationException("Неверный метод создания");
+        }
+        return matrix;
       }
-      else if (method == "2")
+      catch (Exception ex)
       {
-        Console.Write("Введите минимальное значение: ");
-        int minValue = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Введите максимальное значение: ");
-        int maxValue = Convert.ToInt32(Console.ReadLine());
-        matrix = MatrixGenerator.Generate(sizeMatrix, minValue, maxValue);
+        throw new MatrixException($"Ошибка создания матрицы, {ex.Message}");
       }
-      else
-      {
-        throw new InvalidOperationException("Неверный выбор метода создания");
-      }
-      return matrix;
     }
   }
 }

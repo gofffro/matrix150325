@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace MatrixApp
 {
-  public class Matrix : IComparable<Matrix>
+  public class Matrix : ICloneable, IComparable<Matrix>
   {
     int matrixRow;
     int matrixColumn;
     double[,] matrix;
 
-    public Matrix(int matrixRow, int matrixColumn) 
+    public Matrix(int matrixRow, int matrixColumn)
     {
-      if (matrixRow !=  matrixColumn)
+      if (matrixRow != matrixColumn)
       {
         throw new SquareMatrixException();
       }
@@ -41,7 +41,7 @@ namespace MatrixApp
       }
 
       matrix = new double[matrixRow, matrixColumn];
-      
+
       for (int row = 0; row < matrixRow; ++row)
       {
         for (int column = 0; column < matrixColumn; ++column)
@@ -171,7 +171,7 @@ namespace MatrixApp
         }
       }
       return resultMatrix;
-     }
+    }
 
     public static bool operator >(Matrix matrixA, Matrix matrixB)
     {
@@ -279,7 +279,7 @@ namespace MatrixApp
       return base.GetHashCode();
     }
 
-    public bool Equals(Matrix matrixA, Matrix matrixB) 
+    public bool Equals(Matrix matrixA, Matrix matrixB)
     {
       return matrixA == matrixB;
     }
@@ -304,7 +304,7 @@ namespace MatrixApp
       }
 
       adjugate = Transpose(adjugate);
-      return adjugate * (1 / detMatrix); 
+      return adjugate * (1 / detMatrix);
     }
 
     private double Minor(int skipRow, int skipColumn)
@@ -319,7 +319,7 @@ namespace MatrixApp
           int subColumn = 0;
 
           for (int column = 0; column < matrixColumn; ++column)
-          { 
+          {
             if (column != skipColumn)
             {
               subMatrix.matrix[subRow, subColumn] = matrix[row, column];
@@ -346,16 +346,22 @@ namespace MatrixApp
       return transposedMatrix;
     }
 
-    public Matrix(Matrix matrix)
+    public Matrix DeepCopy()
     {
-      matrixRow = matrix.matrixRow;
-      matrixColumn = matrix.matrixColumn;
-      this.matrix = (double[,])matrix.matrix.Clone();
+      Matrix copyMatrix = new Matrix(matrixRow, matrixColumn);
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          copyMatrix.matrix[row, column] = matrix[row, column];
+        }
+      }
+      return copyMatrix;
     }
 
-    public Matrix Clone()
+    public object Clone()
     {
-      return new Matrix(this);
+      return DeepCopy();
     }
   }
 }
