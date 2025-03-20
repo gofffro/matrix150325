@@ -346,22 +346,26 @@ namespace MatrixApp
       return transposedMatrix;
     }
 
-    public Matrix DeepCopy()
+    public object Clone()
     {
-      Matrix copyMatrix = new Matrix(matrixRow, matrixColumn);
+      double[,] clonedMatrix = new double[matrixRow, matrixColumn];
+
       for (int row = 0; row < matrixRow; ++row)
       {
         for (int column = 0; column < matrixColumn; ++column)
         {
-          copyMatrix.matrix[row, column] = matrix[row, column];
+          clonedMatrix[row, column] = matrix[row, column];
         }
       }
-      return copyMatrix;
+
+      Matrix cloned = new Matrix(matrixRow, matrixColumn);
+      cloned.matrix = clonedMatrix;
+      return cloned;
     }
 
-    public object Clone()
+    public Matrix DeepCopy()
     {
-      return DeepCopy();
+      return (Matrix)this.Clone();
     }
   }
-}
+ }

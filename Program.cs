@@ -10,11 +10,13 @@ namespace MatrixApp
       {
         Console.Write("Матрица A");
         Matrix matrixA = CreateMatrix();
-        Matrix cloneMatrixA = (Matrix)matrixA.Clone();
+        Matrix cloneMatrixA = matrixA.DeepCopy();
+        Console.WriteLine(matrixA);
 
         Console.Write("Матрица B");
         Matrix matrixB = CreateMatrix();
-        Matrix cloneMatrixB = (Matrix)matrixB.Clone();
+        Matrix cloneMatrixB = matrixB.DeepCopy();
+        Console.WriteLine(matrixB);
 
         string menuMethod;
         while (true)
@@ -36,6 +38,7 @@ namespace MatrixApp
           Console.WriteLine("11 - Проверить A.Equals(B)");
           Console.WriteLine("12 - Обратная матрица A");
           Console.WriteLine("13 - Обратная матрица B");
+          Console.WriteLine("14 - Демонстрация глубокого копирования");
           Console.WriteLine("0 - Выход");
           Console.Write("Ввод: ");
           menuMethod = Console.ReadLine();
@@ -88,6 +91,15 @@ namespace MatrixApp
               break;
             case "13":
               Console.WriteLine("Обратная B:\n" + matrixB.Inverse());
+              break;
+            case "14":
+              Console.WriteLine("Демонстрация глубокого копирования: ");
+              Console.WriteLine("Изначальная матрица A:\n" + matrixA);
+              Console.WriteLine("Клон матрицы (перед изменением):\n" + cloneMatrixA);
+              Console.WriteLine("Изменяем изначальную матрицу A");
+              matrixA.EntryMatrix();
+              Console.WriteLine("Матрица A(после изменения):\n" + matrixA);
+              Console.WriteLine("Клон матрицы (после изменением):\n" + cloneMatrixA);
               break;
             default:
               Console.WriteLine("Некорректный ввод.");
