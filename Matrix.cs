@@ -302,7 +302,6 @@ namespace MatrixApp
           adjugate.matrix[row, column] = (sign * Minor(row, column));
         }
       }
-
       adjugate = Transpose(adjugate);
       return adjugate * (1 / detMatrix);
     }

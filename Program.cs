@@ -99,7 +99,7 @@ namespace MatrixApp
               Console.WriteLine("Изменяем изначальную матрицу A");
               matrixA.EntryMatrix();
               Console.WriteLine("Матрица A(после изменения):\n" + matrixA);
-              Console.WriteLine("Клон матрицы (после изменением):\n" + cloneMatrixA);
+              Console.WriteLine("Клон матрицы (после изменения):\n" + cloneMatrixA);
               break;
             default:
               Console.WriteLine("Некорректный ввод.");
