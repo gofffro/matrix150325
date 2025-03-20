@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace MatrixApp
 {
-  public class Matrix : IComparable<Matrix>
+  public class Matrix : ICloneable, IComparable<Matrix>
   {
     int matrixRow;
     int matrixColumn;
     double[,] matrix;
 
-    public Matrix(int matrixRow, int matrixColumn) 
+    public Matrix(int matrixRow, int matrixColumn)
     {
-      if (matrixRow !=  matrixColumn)
+      if (matrixRow != matrixColumn)
       {
         throw new SquareMatrixException();
       }
@@ -41,7 +41,7 @@ namespace MatrixApp
       }
 
       matrix = new double[matrixRow, matrixColumn];
-      
+
       for (int row = 0; row < matrixRow; ++row)
       {
         for (int column = 0; column < matrixColumn; ++column)
@@ -171,7 +171,7 @@ namespace MatrixApp
         }
       }
       return resultMatrix;
-     }
+    }
 
     public static bool operator >(Matrix matrixA, Matrix matrixB)
     {
@@ -279,7 +279,7 @@ namespace MatrixApp
       return base.GetHashCode();
     }
 
-    public bool Equals(Matrix matrixA, Matrix matrixB) 
+    public bool Equals(Matrix matrixA, Matrix matrixB)
     {
       return matrixA == matrixB;
     }
@@ -302,9 +302,8 @@ namespace MatrixApp
           adjugate.matrix[row, column] = (sign * Minor(row, column));
         }
       }
-
       adjugate = Transpose(adjugate);
-      return adjugate * (1 / detMatrix); 
+      return adjugate * (1 / detMatrix);
     }
 
     private double Minor(int skipRow, int skipColumn)
@@ -319,7 +318,7 @@ namespace MatrixApp
           int subColumn = 0;
 
           for (int column = 0; column < matrixColumn; ++column)
-          { 
+          {
             if (column != skipColumn)
             {
               subMatrix.matrix[subRow, subColumn] = matrix[row, column];
@@ -346,16 +345,26 @@ namespace MatrixApp
       return transposedMatrix;
     }
 
-    public Matrix(Matrix matrix)
+    public object Clone()
     {
-      matrixRow = matrix.matrixRow;
-      matrixColumn = matrix.matrixColumn;
-      this.matrix = (double[,])matrix.matrix.Clone();
+      double[,] clonedMatrix = new double[matrixRow, matrixColumn];
+
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int column = 0; column < matrixColumn; ++column)
+        {
+          clonedMatrix[row, column] = matrix[row, column];
+        }
+      }
+
+      Matrix cloned = new Matrix(matrixRow, matrixColumn);
+      cloned.matrix = clonedMatrix;
+      return cloned;
     }
 
-    public Matrix Clone()
+    public Matrix DeepCopy()
     {
-      return new Matrix(this);
+      return (Matrix)this.Clone();
     }
   }
-}
+ }
