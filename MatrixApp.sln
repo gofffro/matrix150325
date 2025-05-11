@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixApp", "MatrixApp.csproj", "{0682AA83-C0B8-4FAB-9899-BE1CE149DBE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixApp.Tests", "..\MatrixApp.Tests\MatrixApp.Tests.csproj", "{241AD77F-FEE4-4304-9B66-CA330ADFB153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0682AA83-C0B8-4FAB-9899-BE1CE149DBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0682AA83-C0B8-4FAB-9899-BE1CE149DBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0682AA83-C0B8-4FAB-9899-BE1CE149DBE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{241AD77F-FEE4-4304-9B66-CA330ADFB153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{241AD77F-FEE4-4304-9B66-CA330ADFB153}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{241AD77F-FEE4-4304-9B66-CA330ADFB153}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{241AD77F-FEE4-4304-9B66-CA330ADFB153}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
