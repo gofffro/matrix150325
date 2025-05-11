@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices.Marshalling;
@@ -16,15 +17,16 @@ namespace MatrixApp
 
     public Matrix(int matrixRow, int matrixColumn)
     {
+      if (matrixRow <= 0 || matrixColumn <= 0)
+      {
+        throw new InvalidSizeException();
+      }
+
       if (matrixRow != matrixColumn)
       {
         throw new SquareMatrixException();
       }
 
-      if (matrixRow <= 0 || matrixColumn <= 0)
-      {
-        throw new InvalidSizeException();
-      }
       this.matrixRow = matrixRow;
       this.matrixColumn = matrixColumn;
       matrix = new double[matrixRow, matrixColumn];
@@ -367,4 +369,4 @@ namespace MatrixApp
       return (Matrix)this.Clone();
     }
   }
- }
+}
