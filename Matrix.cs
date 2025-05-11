@@ -368,5 +368,33 @@ namespace MatrixApp
     {
       return (Matrix)this.Clone();
     }
+
+    public override bool Equals(object obj)
+    {
+      if (obj == null || GetType() != obj.GetType())
+      {
+        return false;
+      }
+
+      Matrix otherMatrix = (Matrix)obj;
+
+      if (matrixRow != otherMatrix.matrixRow || matrixColumn != otherMatrix.matrixColumn)
+      {
+        return false;
+      }
+
+      for (int row = 0; row < matrixRow; ++row)
+      {
+        for (int col = 0; col < matrixColumn; ++col)
+        {
+          if (matrix[row, col] != otherMatrix.matrix[row, col])
+          {
+            return false;
+          }
+        }
+      }
+
+      return true;
+    }
   }
 }
